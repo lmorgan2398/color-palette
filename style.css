@@ -14,15 +14,16 @@ body {
 
 }
 
-.first-column {
+.column1 {
     display: grid;
     gap: 5px;
     justify-items: center;
 }
 
-.first-column > div {
+.column1 > div {
     border: 1px solid black;
     border-radius: 8px;
+    background-color: white;
     height: 45px;
     width: 100px;
     align-items: center;
@@ -39,4 +40,5 @@ label {
     width: 50px;
     border-radius: 1000px;
     border: 1px solid black;
+    background-color: white;
 }
