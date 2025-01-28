@@ -57,8 +57,8 @@ function hsbToHex(h, s, b) {
 // Apply different shades to corresponding divs
 
 function shadeHue(hue) {
-  let sList = [8, 20.5, 32, 43.5, 55, 66.5, 78, 89.5, 100]
-  let bList = [100, 90.5, 81, 71.5, 62, 52.5, 43, 33.5, 24]
+  let sList = [10, 30, 50, 70, 90, 100, 100, 100, 100]
+  let bList = [100, 100, 100, 100, 90, 70, 50, 30, 10]
   
     for (let i = 0; i < 10; i++) {
       let h = hue;
