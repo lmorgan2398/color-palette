@@ -1,7 +1,11 @@
 // Create variable for color selected via color picker
 
-let currentColor = document.getElementById('color').value;
+let currentColor = '#FFFFFF';
 let colorPicker = document.getElementById('color');
+
+// Convert variable value to HSB
+// Split HSB to separate Hue, Saturation, and Brightness values
+// Apply hex value as text to div
 
 function hexToHue(hex) {
     hex = hex.substr(1);
@@ -49,6 +53,9 @@ function hsbToHex(h, s, b) {
   return `#${toHex(r)}${toHex(g)}${toHex(bVal)}`;
 };
 
+// Iterate over Saturation and Brightness values per hue to create different shades
+// Apply different shades to corresponding divs
+
 function shadeHue(hue) {
   let sList = [8, 20.5, 32, 43.5, 55, 66.5, 78, 89.5, 100]
   let bList = [100, 90.5, 81, 71.5, 62, 52.5, 43, 33.5, 24]
@@ -59,21 +66,19 @@ function shadeHue(hue) {
       let b = bList[i];
       let newHex = hsbToHex(h, s, b);
       document.querySelector(`.shade${i + 1}`).style.backgroundColor = newHex;
-      document.querySelector(`.shade${i + 1}`).textContent = newHex;
+      document.querySelector(`.shade${i + 1}`).textContent = newHex.toUpperCase();
     };
   return;
 }
 
-document.addEventListener('change', () => {
+// Create input for changing selected color
+
+colorPicker.addEventListener('input', () => {
     currentColor = document.getElementById('color').value;
-    document.querySelector('label').style.backgroundColor = currentColor;
-    document.querySelector('label').style.border = `1px solid ${currentColor}`
+    document.querySelector('label').style.backgroundColor = currentColor;    
 });
 
-// Convert variable value to HSB
-
-// Split HSB to separate Hue, Saturation, and Brightness values
-
-// Iterate over Saturation and Brightness values per hue to create different shades
-
-// Apply different shades to corresponding divs
+colorPicker.addEventListener('change', () => {
+  let hue = hexToHue(currentColor);
+  shadeHue(hue);
+});
