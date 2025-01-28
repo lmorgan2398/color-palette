@@ -1,0 +1,42 @@
+html, 
+body, 
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+}
+
+.first-column {
+    display: grid;
+    gap: 5px;
+    justify-items: center;
+}
+
+.first-column > div {
+    border: 1px solid black;
+    border-radius: 8px;
+    height: 45px;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#color {
+    visibility: hidden;
+}
+
+label {
+    height: 50px;
+    width: 50px;
+    border-radius: 1000px;
+    border: 1px solid black;
+}
