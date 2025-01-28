@@ -11,16 +11,17 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    gap: 5px;
 
 }
 
-.column1 {
+.column {
     display: grid;
     gap: 5px;
     justify-items: center;
 }
 
-.column1 > div {
+.column > div {
     border-radius: 8px;
     border: none;
     background-color: lightgray;
