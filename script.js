@@ -1,12 +1,12 @@
 // Create variable for color selected via color picker
 
-let currentColor1 = '#FFFFFF';
-let currentColor2 = '#FFFFFF';
-let currentColor3 = '#FFFFFF';
-let currentColor4 = '#FFFFFF';
-let currentColor5 = '#FFFFFF';
-let currentColor6 = '#FFFFFF';
-let currentColor7 = '#FFFFFF';
+let currentColor1 = localStorage.getItem('currentColor1');
+let currentColor2 = localStorage.getItem('currentColor2');
+let currentColor3 = localStorage.getItem('currentColor3');
+let currentColor4 = localStorage.getItem('currentColor4');
+let currentColor5 = localStorage.getItem('currentColor5');
+let currentColor6 = localStorage.getItem('currentColor6');
+let currentColor7 = localStorage.getItem('currentColor7');
 
 let colorPicker1 = document.getElementById('color1');
 let colorPicker2 = document.getElementById('color2');
@@ -16,6 +16,10 @@ let colorPicker5 = document.getElementById('color5');
 let colorPicker6 = document.getElementById('color6');
 let colorPicker7 = document.getElementById('color7');
 
+document.addEventListener('DOMContentLoaded', () => {
+  let hue2 = hexToHue(currentColor2);
+  shadeHue(hue2, '2');
+});
 
 // Convert variable value to HSB
 // Split HSB to separate Hue, Saturation, and Brightness values
@@ -78,10 +82,10 @@ function shadeHue(hue, column) {
       let s = sList[i];
       let b = bList[i];
       let newHex = hsbToHex(h, s, b);
-      document.querySelector(`.column${column} .shade${i + 1}`).style.backgroundColor = newHex;
-      document.querySelector(`.column${column} .shade${i + 1}`).textContent = newHex;
+      let currentCell = document.querySelector(`.column${column}` + ' ' + `.shade${i + 1}`)
+      currentCell.style.backgroundColor = newHex;
+      currentCell.textContent = newHex;
     };
-  return;
 }
 
 // Create input for changing selected color
@@ -92,6 +96,7 @@ colorPicker1.addEventListener('input', () => {
 });
 
 colorPicker1.addEventListener('change', () => {
+  localStorage.setItem('currentColor1', `${currentColor1}`);
   let hue = hexToHue(currentColor1);
   shadeHue(hue, '1');
 });
@@ -104,6 +109,7 @@ colorPicker2.addEventListener('input', () => {
 });
 
 colorPicker2.addEventListener('change', () => {
+localStorage.setItem('currentColor2', `${currentColor2}`);
 let hue = hexToHue(currentColor2);
 shadeHue(hue, '2');
 });
@@ -116,6 +122,7 @@ colorPicker3.addEventListener('input', () => {
 });
 
 colorPicker3.addEventListener('change', () => {
+localStorage.setItem('currentColor3', `${currentColor3}`);
 let hue = hexToHue(currentColor3);
 shadeHue(hue, '3');
 });
@@ -128,6 +135,7 @@ colorPicker4.addEventListener('input', () => {
 });
 
 colorPicker4.addEventListener('change', () => {
+localStorage.setItem('currentColor4', `${currentColor4}`);
 let hue = hexToHue(currentColor4);
 shadeHue(hue, '4');
 });
@@ -140,6 +148,7 @@ colorPicker5.addEventListener('input', () => {
 });
 
 colorPicker5.addEventListener('change', () => {
+localStorage.setItem('currentColor5', `${currentColor5}`);
 let hue = hexToHue(currentColor5);
 shadeHue(hue, '5');
 });
@@ -152,6 +161,7 @@ colorPicker6.addEventListener('input', () => {
 });
 
 colorPicker6.addEventListener('change', () => {
+localStorage.setItem('currentColor6', `${currentColor6}`);
 let hue = hexToHue(currentColor6);
 shadeHue(hue, '6');
 });
@@ -165,6 +175,7 @@ colorPicker7.addEventListener('input', () => {
 });
 
 colorPicker7.addEventListener('change', () => {
+localStorage.setItem('currentColor7', `${currentColor7}`);
 let hue = hexToHue(currentColor7);
 shadeHue(hue, '7');
 });
