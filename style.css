@@ -30,6 +30,12 @@ body {
     align-items: center;
     justify-content: center;
     display: flex;
+    transition: all 0.1s ease-in-out;
+}
+
+.column > div:hover {
+    transform:scale(1.05);
+    cursor: grab;
 }
 
 input {

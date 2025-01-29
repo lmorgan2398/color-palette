@@ -169,3 +169,11 @@ let hue = hexToHue(currentColor7);
 shadeHue(hue, '7');
 });
 
+// Add function to copy hex values to clipboard
+
+const colors = document.querySelectorAll(`.column div`);
+colors.forEach(color => {
+  color.addEventListener('click', () => {
+    navigator.clipboard.writeText(color.textContent);
+  })
+})
