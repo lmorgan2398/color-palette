@@ -17,8 +17,26 @@ let colorPicker6 = document.getElementById('color6');
 let colorPicker7 = document.getElementById('color7');
 
 document.addEventListener('DOMContentLoaded', () => {
+  let hue1 = hexToHue(currentColor1);
+  shadeHue(hue1, '1');
+
   let hue2 = hexToHue(currentColor2);
   shadeHue(hue2, '2');
+
+  let hue3 = hexToHue(currentColor3);
+  shadeHue(hue3, '3');
+
+  let hue4 = hexToHue(currentColor4);
+  shadeHue(hue4, '4');
+
+  let hue5 = hexToHue(currentColor5);
+  shadeHue(hue5, '5');
+
+  let hue6 = hexToHue(currentColor6);
+  shadeHue(hue6, '6');
+
+  let hue7 = hexToHue(currentColor7);
+  shadeHue(hue7, '7');
 });
 
 // Convert variable value to HSB
@@ -77,11 +95,12 @@ function shadeHue(hue, column) {
   let sList = [10, 30, 50, 70, 90, 100, 100, 100, 100]
   let bList = [100, 100, 100, 100, 90, 70, 50, 30, 10]
   
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 9; i++) {
       let h = hue;
       let s = sList[i];
       let b = bList[i];
       let newHex = hsbToHex(h, s, b);
+      console.log(newHex);
       let currentCell = document.querySelector(`.column${column}` + ' ' + `.shade${i + 1}`)
       currentCell.style.backgroundColor = newHex;
       currentCell.textContent = newHex;
