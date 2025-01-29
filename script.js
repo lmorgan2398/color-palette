@@ -79,7 +79,7 @@ function shadeHue(hue, column) {
       let b = bList[i];
       let newHex = hsbToHex(h, s, b);
       document.querySelector(`.column${column} .shade${i + 1}`).style.backgroundColor = newHex;
-      document.querySelector(`.column${column} .shade${i + 1}`).textContent = newHex.toUpperCase();
+      document.querySelector(`.column${column} .shade${i + 1}`).textContent = newHex;
     };
   return;
 }
@@ -174,6 +174,14 @@ shadeHue(hue, '7');
 const colors = document.querySelectorAll(`.column div`);
 colors.forEach(color => {
   color.addEventListener('click', () => {
-    navigator.clipboard.writeText(color.textContent);
+    if(color.textContent && color.textContent !== 'copied') {
+      let currentCellColor = color.textContent;
+      navigator.clipboard.writeText(currentCellColor);
+      color.textContent = 'copied';
+      setTimeout(function() {
+        color.textContent = currentCellColor;
+      }, 3000);
+    }
   })
 })
+
