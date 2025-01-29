@@ -19,24 +19,31 @@ let colorPicker7 = document.getElementById('color7');
 document.addEventListener('DOMContentLoaded', () => {
   let hue1 = hexToHue(currentColor1);
   shadeHue(hue1, '1');
+  applyTrueColor(currentColor1, '1');
 
   let hue2 = hexToHue(currentColor2);
   shadeHue(hue2, '2');
+  applyTrueColor(currentColor2, '2');
 
   let hue3 = hexToHue(currentColor3);
   shadeHue(hue3, '3');
+  applyTrueColor(currentColor3, '3');
 
   let hue4 = hexToHue(currentColor4);
   shadeHue(hue4, '4');
+  applyTrueColor(currentColor4, '4');
 
   let hue5 = hexToHue(currentColor5);
   shadeHue(hue5, '5');
+  applyTrueColor(currentColor5, '5');
 
   let hue6 = hexToHue(currentColor6);
   shadeHue(hue6, '6');
+  applyTrueColor(currentColor6, '6');
 
   let hue7 = hexToHue(currentColor7);
   shadeHue(hue7, '7');
+  applyTrueColor(currentColor7, '7');
 });
 
 // Convert variable value to HSB
@@ -100,7 +107,6 @@ function shadeHue(hue, column) {
       let s = sList[i];
       let b = bList[i];
       let newHex = hsbToHex(h, s, b);
-      console.log(newHex);
       let currentCell = document.querySelector(`.column${column}` + ' ' + `.shade${i + 1}`)
       currentCell.style.backgroundColor = newHex;
       currentCell.textContent = newHex;
@@ -111,8 +117,8 @@ function shadeHue(hue, column) {
 
 colorPicker1.addEventListener('input', () => {
     currentColor1 = document.getElementById('color1').value;
-    document.querySelector('.column1 label').style.backgroundColor = currentColor1;    
-});
+    applyTrueColor(currentColor1, '1');    
+  });
 
 colorPicker1.addEventListener('change', () => {
   localStorage.setItem('currentColor1', `${currentColor1}`);
@@ -124,7 +130,7 @@ colorPicker1.addEventListener('change', () => {
 
 colorPicker2.addEventListener('input', () => {
   currentColor2 = document.getElementById('color2').value;
-  document.querySelector('.column2 label').style.backgroundColor = currentColor2;    
+  applyTrueColor(currentColor2, '2');    
 });
 
 colorPicker2.addEventListener('change', () => {
@@ -137,7 +143,7 @@ shadeHue(hue, '2');
 
 colorPicker3.addEventListener('input', () => {
   currentColor3 = document.getElementById('color3').value;
-  document.querySelector('.column3 label').style.backgroundColor = currentColor3;    
+  applyTrueColor(currentColor3, '3');    
 });
 
 colorPicker3.addEventListener('change', () => {
@@ -150,7 +156,7 @@ shadeHue(hue, '3');
 
 colorPicker4.addEventListener('input', () => {
   currentColor4 = document.getElementById('color4').value;
-  document.querySelector('.column4 label').style.backgroundColor = currentColor4;    
+  applyTrueColor(currentColor4, '4');    
 });
 
 colorPicker4.addEventListener('change', () => {
@@ -163,7 +169,7 @@ shadeHue(hue, '4');
 
 colorPicker5.addEventListener('input', () => {
   currentColor5 = document.getElementById('color5').value;
-  document.querySelector('.column5 label').style.backgroundColor = currentColor5;    
+  applyTrueColor(currentColor5, '5');    
 });
 
 colorPicker5.addEventListener('change', () => {
@@ -176,7 +182,7 @@ shadeHue(hue, '5');
 
 colorPicker6.addEventListener('input', () => {
   currentColor6 = document.getElementById('color6').value;
-  document.querySelector('.column6 label').style.backgroundColor = currentColor6;    
+  applyTrueColor(currentColor6, '6');    
 });
 
 colorPicker6.addEventListener('change', () => {
@@ -189,8 +195,7 @@ shadeHue(hue, '6');
 
 colorPicker7.addEventListener('input', () => {
   currentColor7 = document.getElementById('color7').value;
-  document.querySelector('.column7 label').style.backgroundColor = currentColor7;
-  console.log('working')  
+  applyTrueColor(currentColor7, '7');    
 });
 
 colorPicker7.addEventListener('change', () => {
@@ -215,3 +220,11 @@ colors.forEach(color => {
   })
 })
 
+
+// Create function to apply 100% saturation/brightness
+
+function applyTrueColor(color, column) {
+  let trueHue = hexToHue(color);
+  let trueColor = hsbToHex(trueHue, 100, 100);
+  document.querySelector(`.column${column} label`).style.backgroundColor = trueColor;
+}
