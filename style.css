@@ -32,7 +32,7 @@ body {
     display: flex;
 }
 
-#color {
+input {
     visibility: hidden;
 }
 
