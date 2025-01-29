@@ -9,11 +9,22 @@ body,
 
 body {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    gap: 5px;
+    gap: 50px;
+}
 
+h1 {
+    font-size: 48px;
+    letter-spacing: 10px;
+}
+
+.palette {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .column {
