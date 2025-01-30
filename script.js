@@ -228,3 +228,43 @@ function applyTrueColor(color, column) {
   let trueColor = hsbToHex(trueHue, 100, 100);
   document.querySelector(`.column${column} label`).style.backgroundColor = trueColor;
 }
+
+
+// Add and call function to randomize color of text in title heading
+// Add event listener to clicking on title to randomize further
+
+function randomizeTitleColor() {
+  function rgbToHue(r, g, b) {
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const v = Math.max(r, g, b),
+      n = v - Math.min(r, g, b);
+    const h =
+      n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;
+    return 60 * (h < 0 ? h + 6 : h);
+  };
+
+  for(let i = 0; i < 13; i++) {
+    let currentChar = document.querySelector(`span:nth-child(${i + 1})`);
+    function randomColorValue() {
+      let randomValue = Math.floor(Math.random() * 255);
+      return randomValue;
+    }
+    let r = randomColorValue();
+    let g = randomColorValue();
+    let b = randomColorValue();
+
+    // let trueHue = rgbToHue(r, g, b);
+    // let trueColor = hsbToHex(trueHue, 100, 100)
+
+    currentChar.style.color = `rgb(${r}, ${g}, ${b})`;
+  }
+};
+
+randomizeTitleColor();
+
+let titleHeading = document.querySelector('h1');
+titleHeading.addEventListener('click', () => {
+  randomizeTitleColor();
+})
