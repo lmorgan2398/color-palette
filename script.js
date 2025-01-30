@@ -245,7 +245,7 @@ function randomizeTitleColor() {
     return 60 * (h < 0 ? h + 6 : h);
   };
 
-  for(let i = 0; i < 13; i++) {
+  for(let i = 0; i < 14; i++) {
     let currentChar = document.querySelector(`span:nth-child(${i + 1})`);
     function randomColorValue() {
       let randomValue = Math.floor(Math.random() * 255);
