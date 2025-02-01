@@ -268,3 +268,7 @@ let titleHeading = document.querySelector('h1');
 titleHeading.addEventListener('click', () => {
   randomizeTitleColor();
 })
+
+
+
+// Create input function to save name of palette

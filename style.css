@@ -14,6 +14,13 @@ body {
     justify-content: center;
     height: 100vh;
     gap: 50px;
+    background-color: whitesmoke;
+}
+
+.information {
+    display: flex;
+    justify-content: center;
+    gap: 150px;
 }
 
 h1 {
@@ -26,6 +33,30 @@ h1 {
 
 h1:hover {
     cursor: grab;
+}
+
+.palette-name {
+    background-color: black;
+    border-radius: 8px;
+    padding: 10px;
+    height: fit-content;
+    align-self: flex-end;
+}
+
+#name {
+    color: whitesmoke;
+    background-color: black;
+    font-size: 20px;
+    visibility: visible;
+    border-radius: 8px;
+    text-align: center;
+    border: none;
+    padding: 5px;
+}
+
+.name-submit {
+    background-color: black;
+    border: none;
 }
 
 .palette {
