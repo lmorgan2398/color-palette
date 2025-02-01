@@ -296,7 +296,6 @@ function randomizeNameColor() {
       count = true;}
   };
   if(count = true) {
-    console.log('working');
     while(savedNameBox.firstChild) {
       savedNameBox.removeChild(savedNameBox.firstChild);
     }
@@ -307,7 +306,6 @@ function randomizeNameColor() {
       newChar.textContent = stringToArray[i];
       savedNameBox.appendChild(newChar);
       let randomValue = (Math.floor(Math.random() * 7)) + 1;
-      console.log(randomValue);
       while(localStorage.getItem(`currentColor${randomValue}`) === null) {
         randomValue = (Math.floor(Math.random() * 7)) + 1;
       };
@@ -332,3 +330,36 @@ nameBox.addEventListener('keypress', function(e) {
 });
 
 randomizeNameColor();
+
+// Create function to save current localStorage palette set to 
+// unique localStorage object as a preset
+
+function saveCurrentPalette() {
+  for(let i = 1; i < 6; i++) {
+    let savedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
+    console.log(!savedPalette);
+    if(!savedPalette || savedPalette && savedPalette.name === localStorage.getItem(`currentName`)) {
+      let newSavedPalette = {
+        name: localStorage.getItem(`currentName`),
+        color1: currentColor1,
+        color2: currentColor2,
+        color3: currentColor3,
+        color4: currentColor4,
+        color5: currentColor5,
+        color6: currentColor6,
+        color7: currentColor7,
+      }
+      localStorage.setItem(`savedPalette${i}`, JSON.stringify(newSavedPalette));
+      console.log('working');
+      return;
+
+    } else if(savedPalette && i === 5) {
+      alert('Max limit reached!');
+      console.log('working');
+
+      break;
+    } else {
+      console.log('working');
+      continue};
+  }
+}

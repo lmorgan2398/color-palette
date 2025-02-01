@@ -20,7 +20,7 @@ body {
 .information {
     display: flex;
     justify-content: center;
-    gap: 150px;
+    gap: 120px;
 }
 
 h1 {
@@ -52,8 +52,8 @@ h1:hover {
 
 .saved-name {
     color: whitesmoke;
-    background-color: transparent;
-    font-size: 20px;
+    background-color: black;
+    font-size: 22px;
     border-radius: 8px;
     text-align: center;
     border: none;
@@ -83,7 +83,7 @@ h1:hover {
 #name {
     color: whitesmoke;
     background-color: black;
-    font-size: 20px;
+    font-size: 22px;
     border-radius: 8px;
     text-align: center;
     border: none;
