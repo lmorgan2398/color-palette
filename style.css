@@ -35,6 +35,40 @@ h1:hover {
     cursor: grab;
 }
  
+.toolkit {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.save-button {
+    background-color: black;
+    border-radius: 8px;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    transition: all 0.1s ease-in-out;
+    margin: 0px;
+    line-height: 0;
+}
+
+.save-button:hover {
+    transform:scale(1.05);
+    cursor: grab;
+}
+
+.save-button:active {
+    transform:scale(0.95);
+}
+
+.save-button svg {
+    width: 35px;
+    height: 35px;
+    fill: white;
+    padding: 0px;
+    margin: 0px;
+}
+
 .palette-name {
     background-color: black;
     border-radius: 8px;

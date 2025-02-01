@@ -124,6 +124,7 @@ colorPicker1.addEventListener('change', () => {
   localStorage.setItem('currentColor1', `${currentColor1}`);
   let hue = hexToHue(currentColor1);
   shadeHue(hue, '1');
+  document.querySelector('.save-button svg').style.fill = 'red';
 });
 
 // Repeat process for each color picker
@@ -137,6 +138,7 @@ colorPicker2.addEventListener('change', () => {
 localStorage.setItem('currentColor2', `${currentColor2}`);
 let hue = hexToHue(currentColor2);
 shadeHue(hue, '2');
+document.querySelector('.save-button svg').style.fill = 'red';
 });
 
 
@@ -150,6 +152,7 @@ colorPicker3.addEventListener('change', () => {
 localStorage.setItem('currentColor3', `${currentColor3}`);
 let hue = hexToHue(currentColor3);
 shadeHue(hue, '3');
+document.querySelector('.save-button svg').style.fill = 'red';
 });
 
 
@@ -163,6 +166,7 @@ colorPicker4.addEventListener('change', () => {
 localStorage.setItem('currentColor4', `${currentColor4}`);
 let hue = hexToHue(currentColor4);
 shadeHue(hue, '4');
+document.querySelector('.save-button svg').style.fill = 'red';
 });
 
 
@@ -176,6 +180,7 @@ colorPicker5.addEventListener('change', () => {
 localStorage.setItem('currentColor5', `${currentColor5}`);
 let hue = hexToHue(currentColor5);
 shadeHue(hue, '5');
+document.querySelector('.save-button svg').style.fill = 'red';
 });
 
 
@@ -189,6 +194,7 @@ colorPicker6.addEventListener('change', () => {
 localStorage.setItem('currentColor6', `${currentColor6}`);
 let hue = hexToHue(currentColor6);
 shadeHue(hue, '6');
+document.querySelector('.save-button svg').style.fill = 'red';
 });
 
 
@@ -202,6 +208,7 @@ colorPicker7.addEventListener('change', () => {
 localStorage.setItem('currentColor7', `${currentColor7}`);
 let hue = hexToHue(currentColor7);
 shadeHue(hue, '7');
+document.querySelector('.save-button svg').style.fill = 'red';
 });
 
 // Add function to copy hex values to clipboard
@@ -277,6 +284,7 @@ let nameBox = document.getElementById('name');
 
 nameBox.addEventListener('change', () => {
   localStorage.setItem('currentName', `${document.getElementById('name').value}`)
+  document.querySelector('.save-button svg').style.fill = 'red';
 })
 
 nameBox.value = localStorage.getItem('currentName');
@@ -326,6 +334,7 @@ nameBox.addEventListener('keypress', function(e) {
     randomizeNameColor();
     savedNameBox.style.zIndex = 2;
     nameBox.blur();
+    document.querySelector('.save-button svg').style.fill = 'red';
   }
 });
 
@@ -352,14 +361,18 @@ function saveCurrentPalette() {
       localStorage.setItem(`savedPalette${i}`, JSON.stringify(newSavedPalette));
       console.log('working');
       return;
-
     } else if(savedPalette && i === 5) {
       alert('Max limit reached!');
       console.log('working');
-
       break;
     } else {
       console.log('working');
       continue};
   }
 }
+
+let saveButton = document.querySelector('.save-button');
+saveButton.addEventListener('click', () => {
+  saveCurrentPalette();
+  document.querySelector('.save-button svg').style.fill = 'green';
+})
