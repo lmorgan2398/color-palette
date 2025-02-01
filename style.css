@@ -34,24 +34,65 @@ h1 {
 h1:hover {
     cursor: grab;
 }
-
+ 
 .palette-name {
     background-color: black;
     border-radius: 8px;
     padding: 10px;
     height: fit-content;
     align-self: flex-end;
+    display: grid;
+    grid-template: 1fr / 1fr;
+}
+
+.saved-name,
+#name {
+    letter-spacing: 2px;
+}
+
+.saved-name {
+    color: whitesmoke;
+    background-color: transparent;
+    font-size: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border: none;
+    padding: 5px;    
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    z-index: 2;
+    font-weight: bold;
+}
+
+.saved-name span {
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.saved-name:hover,
+#name:hover {
+    cursor: text;
+    outline: 1px solid whitesmoke;
+}
+
+#name:focus {
+    outline: 1px solid whitesmoke;
+    color: whitesmoke;
 }
 
 #name {
     color: whitesmoke;
     background-color: black;
     font-size: 20px;
-    visibility: visible;
     border-radius: 8px;
     text-align: center;
     border: none;
     padding: 5px;
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    z-index: 1;
+    visibility: visible;
+    font-weight: bold;
 }
 
 .name-submit {

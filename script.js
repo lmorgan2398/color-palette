@@ -248,7 +248,7 @@ function randomizeTitleColor() {
   for(let i = 0; i < 14; i++) {
     let currentChar = document.querySelector(`span:nth-child(${i + 1})`);
     function randomColorValue() {
-      let randomValue = Math.floor(Math.random() * 255);
+      let randomValue = Math.floor(Math.random() * 256);
       return randomValue;
     }
     let r = randomColorValue();
@@ -279,6 +279,45 @@ nameBox.addEventListener('change', () => {
   localStorage.setItem('currentName', `${document.getElementById('name').value}`)
 })
 
-document.addEventListener('DOMContentLoaded', () => {
-  nameBox.value = localStorage.getItem('currentName');
+nameBox.value = localStorage.getItem('currentName');
+
+let savedNameBox = document.querySelector('.saved-name');
+
+// Create and apply function to style palette name in colors of the palette
+
+function randomizeNameColor() {
+  while(savedNameBox.firstChild) {
+    savedNameBox.removeChild(savedNameBox.firstChild);
+  }
+  let length = nameBox.value.length;
+  let stringToArray = nameBox.value.split('');
+  for(let i = 0; i < length; i++) {
+    let newChar = document.createElement('span');
+    newChar.textContent = stringToArray[i];
+    savedNameBox.appendChild(newChar);
+    let randomValue = (Math.floor(Math.random() * 7)) + 1;
+    console.log(randomValue);
+    while(localStorage.getItem(`currentColor${randomValue}`) === null) {
+      randomValue = (Math.floor(Math.random() * 7)) + 1;
+    };
+    let hue = hexToHue(localStorage.getItem(`currentColor${randomValue}`));
+    let newColor = hsbToHex(hue, 100, 100);
+    newChar.style.color = newColor;
+
+  }
+};
+
+savedNameBox.addEventListener('click', () => {
+  savedNameBox.style.zIndex = 0;
+  nameBox.focus();
 })
+
+nameBox.addEventListener('keypress', function(e) {
+  if(e.key === 'Enter') {
+    randomizeNameColor();
+    savedNameBox.style.zIndex = 2;
+    nameBox.blur();
+  }
+});
+
+randomizeNameColor();
