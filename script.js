@@ -272,3 +272,13 @@ titleHeading.addEventListener('click', () => {
 
 
 // Create input function to save name of palette
+
+let nameBox = document.getElementById('name');
+
+nameBox.addEventListener('change', () => {
+  localStorage.setItem('currentName', `${document.getElementById('name').value}`)
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  nameBox.value = localStorage.getItem('currentName');
+})
