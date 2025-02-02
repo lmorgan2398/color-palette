@@ -315,7 +315,6 @@ function randomizeNameColor() {
     for(let i = 0; i < length; i++) {
       let newChar = document.createElement('span');
       newChar.textContent = stringToArray[i];
-      console.log('working');
       savedNameBox.appendChild(newChar);
       let randomValue = (Math.floor(Math.random() * 7)) + 1;
       while(localStorage.getItem(`currentColor${randomValue}`) === null) {
@@ -365,7 +364,6 @@ if(savedNameBox.firstChild) {
 function saveCurrentPalette() {
   for(let i = 1; i < 6; i++) {
     let savedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
-    console.log(!savedPalette);
     if(!savedPalette || savedPalette && savedPalette.name === localStorage.getItem(`currentName`)) {
       let newSavedPalette = {
         name: localStorage.getItem(`currentName`),
@@ -378,7 +376,6 @@ function saveCurrentPalette() {
         color7: currentColor7,
       }
       localStorage.setItem(`savedPalette${i}`, JSON.stringify(newSavedPalette));
-      console.log('working');
       return;
     } else if(savedPalette && i === 5) {
       alert('Max limit reached!');
@@ -395,3 +392,72 @@ saveButton.addEventListener('click', () => {
   saveCurrentPalette();
   document.querySelector('.save-button svg').style.fill = 'green';
 })
+
+// Create function to load previously saved palette to current palette
+
+let loadButton = document.querySelector('.load-button');
+loadButton.addEventListener('click', () => {
+  if(document.querySelector('.load-button svg').style.fill === 'blue') {
+    document.querySelector('.load-button svg').style.fill = 'white';
+    document.querySelector('.saved-palettes').style.visibility = 'hidden';
+  } else {
+    document.querySelector('.load-button svg').style.fill = 'blue';
+    document.querySelector('.saved-palettes').style.visibility = 'visible';
+  }
+})
+
+let savedPalettes = document.querySelector('.saved-palettes');
+
+function loadPalettes() {
+for(i = 1; i < 6; i++) {
+  let count;
+  for(let j = 1; j < 8; j++) {
+    if (!(JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${j}`] && j === 7) {
+      console.log('working');
+      count = false;
+    } else if (!(JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${j}`]) {
+      continue; 
+    } else {
+      count = true;
+      break;}
+  };
+  if(count === true) {
+    let savedPalette = document.createElement('div');
+    savedPalettes.appendChild(savedPalette);
+    savedPalette.classList.add(`.savedPalette${i}`);
+    let savedName = JSON.parse(localStorage.getItem(`savedPalette${i}`)).name; 
+    console.log(savedName);   
+    let length = savedName.length;
+    let stringToArray = savedName.split('');
+    for(let j = 0; j < length; j++) {
+      let newChar = document.createElement('span');
+      newChar.textContent = stringToArray[j];
+      savedPalette.appendChild(newChar);
+      let randomValue = (Math.floor(Math.random() * 7)) + 1;
+      let str = localStorage.getItem(`savedPalette${i}`);
+      while((JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${randomValue}`] === null) {
+        randomValue = (Math.floor(Math.random() * 7)) + 1;
+      }
+      let hue = hexToHue(JSON.parse(localStorage.getItem(`savedPalette${i}`))[`color${randomValue}`]);
+      let newColor = hsbToHex(hue, 100, 100);
+      newChar.style.color = newColor;
+    } 
+  } else {
+    let savedPalette = document.createElement('div');
+    savedPalette.classList.add(`.savedPalette${i}`);
+    savedPalettes.appendChild(savedPalette);
+    let savedName = JSON.parse(localStorage.getItem(`savedPalette${i}`)).name; 
+    console.log(savedName);   
+    let length = savedName.length;
+    let stringToArray = savedName.split('');
+    for(let i = 0; i < length; i++) {
+      let newChar = document.createElement('span');
+      newChar.textContent = stringToArray[i];
+      savedPalette.appendChild(newChar);
+      newChar.style.color = 'white';
+    }
+  }
+};
+};
+
+loadPalettes();
