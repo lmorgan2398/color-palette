@@ -340,6 +340,10 @@ nameBox.addEventListener('keypress', function(e) {
 
 randomizeNameColor();
 
+if(savedNameBox.firstChild) {
+  savedNameBox.style.zIndex = 2;
+}
+
 // Create function to save current localStorage palette set to 
 // unique localStorage object as a preset
 
