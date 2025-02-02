@@ -301,9 +301,31 @@ function randomizeNameColor() {
     } else if (!localStorage.getItem(`currentColor${i}`)) {
       continue; 
     } else {
-      count = true;}
+      count = true;
+      console.log('working');
+      break;}
   };
-  if(count = true) {
+  if(count === true) {
+    console.log('working');
+    while(savedNameBox.firstChild) {
+      savedNameBox.removeChild(savedNameBox.firstChild);
+    }
+    let length = nameBox.value.length;
+    let stringToArray = nameBox.value.split('');
+    for(let i = 0; i < length; i++) {
+      let newChar = document.createElement('span');
+      newChar.textContent = stringToArray[i];
+      console.log('working');
+      savedNameBox.appendChild(newChar);
+      let randomValue = (Math.floor(Math.random() * 7)) + 1;
+      while(localStorage.getItem(`currentColor${randomValue}`) === null) {
+        randomValue = (Math.floor(Math.random() * 7)) + 1;
+      };
+      let hue = hexToHue(localStorage.getItem(`currentColor${randomValue}`));
+      let newColor = hsbToHex(hue, 100, 100);
+      newChar.style.color = newColor;
+    }
+  } else {
     while(savedNameBox.firstChild) {
       savedNameBox.removeChild(savedNameBox.firstChild);
     }
@@ -313,13 +335,6 @@ function randomizeNameColor() {
       let newChar = document.createElement('span');
       newChar.textContent = stringToArray[i];
       savedNameBox.appendChild(newChar);
-      let randomValue = (Math.floor(Math.random() * 7)) + 1;
-      while(localStorage.getItem(`currentColor${randomValue}`) === null) {
-        randomValue = (Math.floor(Math.random() * 7)) + 1;
-      };
-      let hue = hexToHue(localStorage.getItem(`currentColor${randomValue}`));
-      let newColor = hsbToHex(hue, 100, 100);
-      newChar.style.color = newColor;
     }
   }
 };
