@@ -188,6 +188,10 @@ h1:hover {
     cursor: grab;
 }
 
+.saved-palettes div:active {
+    transform: scale(0.95);
+}
+
 .palette {
     display: flex;
     align-items: center;
