@@ -391,17 +391,18 @@ let saveButton = document.querySelector('.save-button');
 saveButton.addEventListener('click', () => {
   saveCurrentPalette();
   document.querySelector('.save-button svg').style.fill = 'green';
+  loadPalettes();
 })
 
 // Create function to load previously saved palette to current palette
 
 let loadButton = document.querySelector('.load-button');
 loadButton.addEventListener('click', () => {
-  if(document.querySelector('.load-button svg').style.fill === 'blue') {
+  if(document.querySelector('.load-button svg').style.fill === 'aqua') {
     document.querySelector('.load-button svg').style.fill = 'white';
     document.querySelector('.saved-palettes').style.visibility = 'hidden';
   } else {
-    document.querySelector('.load-button svg').style.fill = 'blue';
+    document.querySelector('.load-button svg').style.fill = 'aqua';
     document.querySelector('.saved-palettes').style.visibility = 'visible';
   }
 })
@@ -409,11 +410,13 @@ loadButton.addEventListener('click', () => {
 let savedPalettes = document.querySelector('.saved-palettes');
 
 function loadPalettes() {
+while(savedPalettes.firstChild) {
+  savedPalettes.removeChild(savedPalettes.firstChild);
+};
 for(i = 1; i < 6; i++) {
   let count;
   for(let j = 1; j < 8; j++) {
     if (!(JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${j}`] && j === 7) {
-      console.log('working');
       count = false;
     } else if (!(JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${j}`]) {
       continue; 

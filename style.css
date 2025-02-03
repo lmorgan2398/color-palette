@@ -167,6 +167,7 @@ h1:hover {
     width: 324.44px;
     letter-spacing: 2px;
     visibility: hidden;
+    position: relative;
 }
 
 .saved-palettes div {
