@@ -17,33 +17,18 @@ let colorPicker6 = document.getElementById('color6');
 let colorPicker7 = document.getElementById('color7');
 
 document.addEventListener('DOMContentLoaded', () => {
-  let hue1 = hexToHue(currentColor1);
-  shadeHue(hue1, '1');
-  applyTrueColor(currentColor1, '1');
-
-  let hue2 = hexToHue(currentColor2);
-  shadeHue(hue2, '2');
-  applyTrueColor(currentColor2, '2');
-
-  let hue3 = hexToHue(currentColor3);
-  shadeHue(hue3, '3');
-  applyTrueColor(currentColor3, '3');
-
-  let hue4 = hexToHue(currentColor4);
-  shadeHue(hue4, '4');
-  applyTrueColor(currentColor4, '4');
-
-  let hue5 = hexToHue(currentColor5);
-  shadeHue(hue5, '5');
-  applyTrueColor(currentColor5, '5');
-
-  let hue6 = hexToHue(currentColor6);
-  shadeHue(hue6, '6');
-  applyTrueColor(currentColor6, '6');
-
-  let hue7 = hexToHue(currentColor7);
-  shadeHue(hue7, '7');
-  applyTrueColor(currentColor7, '7');
+for(let i = 1; i < 8; i++) {
+  console.log(localStorage.getItem(`currentColor${i}`));
+  if ((localStorage.getItem(`currentColor${i}`)) === 'null') {
+    console.log('working');
+    continue;
+  } else {
+    console.log('working');
+    let hue = hexToHue(localStorage.getItem(`currentColor${i}`));
+    shadeHue(hue, `${i}`);
+    applyTrueColor((localStorage.getItem(`currentColor${i}`)), `${i}`);
+  }
+}
 });
 
 // Convert variable value to HSB
@@ -317,7 +302,7 @@ function randomizeNameColor() {
       newChar.textContent = stringToArray[i];
       savedNameBox.appendChild(newChar);
       let randomValue = (Math.floor(Math.random() * 7)) + 1;
-      while(localStorage.getItem(`currentColor${randomValue}`) === null) {
+      while(localStorage.getItem(`currentColor${randomValue}`) === 'null') {
         randomValue = (Math.floor(Math.random() * 7)) + 1;
       };
       let hue = hexToHue(localStorage.getItem(`currentColor${randomValue}`));
@@ -428,8 +413,48 @@ for(i = 1; i < 6; i++) {
     let savedPalette = document.createElement('div');
     savedPalettes.appendChild(savedPalette);
     savedPalette.classList.add(`.savedPalette${i}`);
+    savedPalette.addEventListener('click', () => {
+      
+      let savedPaletteNumber = (Array.from(savedPalettes.children).indexOf(savedPalette)) + 1;
+      console.log(savedPaletteNumber);
+      let newCurrentPalette = (JSON.parse(localStorage.getItem(`savedPalette${savedPaletteNumber}`)));
+      console.log(newCurrentPalette);
+      localStorage.setItem(`currentName`, `${newCurrentPalette[`name`]}`);
+      localStorage.setItem(`currentColor1`, `${newCurrentPalette[`color1`]}`);
+      localStorage.setItem(`currentColor2`, `${newCurrentPalette[`color2`]}`);
+      localStorage.setItem(`currentColor3`, `${newCurrentPalette[`color3`]}`);
+      localStorage.setItem(`currentColor4`, `${newCurrentPalette[`color4`]}`);
+      localStorage.setItem(`currentColor5`, `${newCurrentPalette[`color5`]}`);
+      localStorage.setItem(`currentColor6`, `${newCurrentPalette[`color6`]}`);
+      localStorage.setItem(`currentColor7`, `${newCurrentPalette[`color7`]}`);
+      currentName = localStorage.getItem('currentName');
+      currentColor1 = localStorage.getItem('currentColor1');
+      currentColor2 = localStorage.getItem('currentColor2');
+      currentColor3 = localStorage.getItem('currentColor3');
+      currentColor4 = localStorage.getItem('currentColor4');
+      currentColor5 = localStorage.getItem('currentColor5');
+      currentColor6 = localStorage.getItem('currentColor6');
+      currentColor7 = localStorage.getItem('currentColor7');
+      for(let i = 1; i < 8; i++) {
+        console.log(localStorage.getItem(`currentColor${i}`));
+        if ((localStorage.getItem(`currentColor${i}`)) === 'null') {
+          document.querySelector(`.column${i} label`).style.backgroundColor = 'lightgray';
+          for(let j = 1; j < 10; j++) {
+            document.querySelector(`.column${i} .shade${j}`).style.backgroundColor = 'lightgray';
+            document.querySelector(`.column${i} .shade${j}`).textContent = null;
+          }
+          continue;
+        } else {
+          console.log('working');
+          let hue = hexToHue(localStorage.getItem(`currentColor${i}`));
+          shadeHue(hue, `${i}`);
+          applyTrueColor((localStorage.getItem(`currentColor${i}`)), `${i}`);
+        }
+        nameBox.value = localStorage.getItem('currentName');
+        randomizeNameColor();
+      }
+    });
     let savedName = JSON.parse(localStorage.getItem(`savedPalette${i}`)).name; 
-    console.log(savedName);   
     let length = savedName.length;
     let stringToArray = savedName.split('');
     for(let j = 0; j < length; j++) {
@@ -437,13 +462,13 @@ for(i = 1; i < 6; i++) {
       newChar.textContent = stringToArray[j];
       savedPalette.appendChild(newChar);
       let randomValue = (Math.floor(Math.random() * 7)) + 1;
-      let str = localStorage.getItem(`savedPalette${i}`);
-      while((JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${randomValue}`] === null) {
+      while((JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${randomValue}`] === 'null') {
         randomValue = (Math.floor(Math.random() * 7)) + 1;
       }
       let hue = hexToHue(JSON.parse(localStorage.getItem(`savedPalette${i}`))[`color${randomValue}`]);
       let newColor = hsbToHex(hue, 100, 100);
       newChar.style.color = newColor;
+
     } 
   } else {
     let savedPalette = document.createElement('div');
@@ -462,5 +487,8 @@ for(i = 1; i < 6; i++) {
   }
 };
 };
+
+// Create function to load previously saved palette
+
 
 loadPalettes();
