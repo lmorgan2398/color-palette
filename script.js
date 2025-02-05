@@ -330,14 +330,17 @@ savedNameBox.addEventListener('click', () => {
 
 nameBox.addEventListener('keypress', function(e) {
   if(e.key === 'Enter') {
-    if(nameBox.value) {
-      randomizeNameColor();
-      savedNameBox.style.zIndex = 2;
-      nameBox.blur();
-      document.querySelector('.save-button svg').style.fill = 'red';
-    } else {nameBox.blur()};
+    nameBox.blur();
   }
 });
+
+nameBox.addEventListener('focusout', () => {
+  if(nameBox.value) {
+    randomizeNameColor();
+    savedNameBox.style.zIndex = 2;
+    document.querySelector('.save-button svg').style.fill = 'red';
+  };
+})
 
  randomizeNameColor();
 
