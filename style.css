@@ -56,7 +56,8 @@ h1:hover {
 }
 
 .save-button,
-.load-button {
+.load-button,
+.new-button {
     background-color: black;
     border-radius: 8px;
     width: fit-content;
@@ -68,18 +69,21 @@ h1:hover {
 }
 
 .save-button:hover,
-.load-button:hover {
+.load-button:hover,
+.new-button:hover {
     transform:scale(1.05);
     cursor: grab;
 }
 
 .save-button:active,
-.load-button:active {
+.load-button:active,
+.new-button:active {
     transform:scale(0.95);
 }
 
 .save-button svg,
-.load-button svg {
+.load-button svg,
+.new-button svg {
     width: 35px;
     height: 35px;
     fill: white;

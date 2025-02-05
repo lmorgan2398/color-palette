@@ -18,12 +18,9 @@ let colorPicker7 = document.getElementById('color7');
 
 document.addEventListener('DOMContentLoaded', () => {
 for(let i = 1; i < 8; i++) {
-  console.log(localStorage.getItem(`currentColor${i}`));
   if ((localStorage.getItem(`currentColor${i}`)) === 'null') {
-    console.log('working');
     continue;
   } else {
-    console.log('working');
     let hue = hexToHue(localStorage.getItem(`currentColor${i}`));
     shadeHue(hue, `${i}`);
     applyTrueColor((localStorage.getItem(`currentColor${i}`)), `${i}`);
@@ -269,6 +266,7 @@ let nameBox = document.getElementById('name');
 
 nameBox.addEventListener('change', () => {
   localStorage.setItem('currentName', `${document.getElementById('name').value}`)
+  currentName = localStorage.getItem('currentName');
   document.querySelector('.save-button svg').style.fill = 'red';
 })
 
@@ -279,48 +277,50 @@ let savedNameBox = document.querySelector('.saved-name');
 // Create and apply function to style palette name in colors of the palette
 
 function randomizeNameColor() {
-  let count;
-  for(let i = 1; i < 8; i++) {
-    if (!localStorage.getItem(`currentColor${i}`) && i === 7) {
-      count = false;
-    } else if (!localStorage.getItem(`currentColor${i}`)) {
-      continue; 
-    } else {
-      count = true;
+  if(localStorage.getItem(`currentName`) !== 'null') {
+    let count;
+    for(let i = 1; i < 8; i++) {
+      if (!localStorage.getItem(`currentColor${i}`) && i === 7) {
+        count = false;
+      } else if (!localStorage.getItem(`currentColor${i}`)) {
+        continue; 
+      } else {
+        count = true;
+        console.log('working');
+        break;}
+    };
+    if(count === true) {
       console.log('working');
-      break;}
-  };
-  if(count === true) {
-    console.log('working');
-    while(savedNameBox.firstChild) {
-      savedNameBox.removeChild(savedNameBox.firstChild);
-    }
-    let length = nameBox.value.length;
-    let stringToArray = nameBox.value.split('');
-    for(let i = 0; i < length; i++) {
-      let newChar = document.createElement('span');
-      newChar.textContent = stringToArray[i];
-      savedNameBox.appendChild(newChar);
-      let randomValue = (Math.floor(Math.random() * 7)) + 1;
-      while(localStorage.getItem(`currentColor${randomValue}`) === 'null') {
-        randomValue = (Math.floor(Math.random() * 7)) + 1;
-      };
-      let hue = hexToHue(localStorage.getItem(`currentColor${randomValue}`));
-      let newColor = hsbToHex(hue, 100, 100);
-      newChar.style.color = newColor;
-    }
-  } else {
-    while(savedNameBox.firstChild) {
-      savedNameBox.removeChild(savedNameBox.firstChild);
-    }
-    let length = nameBox.value.length;
-    let stringToArray = nameBox.value.split('');
-    for(let i = 0; i < length; i++) {
-      let newChar = document.createElement('span');
-      newChar.textContent = stringToArray[i];
-      savedNameBox.appendChild(newChar);
+      while(savedNameBox.firstChild) {
+        savedNameBox.removeChild(savedNameBox.firstChild);
+      }
+      let length = nameBox.value.length;
+      let stringToArray = nameBox.value.split('');
+      for(let i = 0; i < length; i++) {
+        let newChar = document.createElement('span');
+        newChar.textContent = stringToArray[i];
+        savedNameBox.appendChild(newChar);
+        let randomValue = (Math.floor(Math.random() * 7)) + 1;
+        while(localStorage.getItem(`currentColor${randomValue}`) === 'null') {
+          randomValue = (Math.floor(Math.random() * 7)) + 1;
+        };
+        let hue = hexToHue(localStorage.getItem(`currentColor${randomValue}`));
+        let newColor = hsbToHex(hue, 100, 100);
+        newChar.style.color = newColor;
+      }
+    } else {
+      while(savedNameBox.firstChild) {
+        savedNameBox.removeChild(savedNameBox.firstChild);
+      }
+      let length = nameBox.value.length;
+      let stringToArray = nameBox.value.split('');
+      for(let i = 0; i < length; i++) {
+        let newChar = document.createElement('span');
+        newChar.textContent = stringToArray[i];
+        savedNameBox.appendChild(newChar);
     }
   }
+};
 };
 
 savedNameBox.addEventListener('click', () => {
@@ -330,14 +330,16 @@ savedNameBox.addEventListener('click', () => {
 
 nameBox.addEventListener('keypress', function(e) {
   if(e.key === 'Enter') {
-    randomizeNameColor();
-    savedNameBox.style.zIndex = 2;
-    nameBox.blur();
-    document.querySelector('.save-button svg').style.fill = 'red';
+    if(nameBox.value) {
+      randomizeNameColor();
+      savedNameBox.style.zIndex = 2;
+      nameBox.blur();
+      document.querySelector('.save-button svg').style.fill = 'red';
+    } else {nameBox.blur()};
   }
 });
 
-randomizeNameColor();
+ randomizeNameColor();
 
 if(savedNameBox.firstChild) {
   savedNameBox.style.zIndex = 2;
@@ -347,11 +349,19 @@ if(savedNameBox.firstChild) {
 // unique localStorage object as a preset
 
 function saveCurrentPalette() {
-  for(let i = 1; i < 6; i++) {
+  const currentName = localStorage.getItem('currentName'); // Store it for efficiency
+
+  if (!currentName || currentName === "null" || currentName.trim() === "") { // Check for empty or "null" name
+    alert("Please enter a name for the palette.");
+    return; // Don't save if the name is invalid
+  }
+
+  for (let i = 1; i < 6; i++) {
     let savedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
-    if(!savedPalette || savedPalette && savedPalette.name === localStorage.getItem(`currentName`)) {
+
+    if (savedPalette === null) {
       let newSavedPalette = {
-        name: localStorage.getItem(`currentName`),
+        name: currentName, // Use the stored currentName
         color1: currentColor1,
         color2: currentColor2,
         color3: currentColor3,
@@ -359,16 +369,26 @@ function saveCurrentPalette() {
         color5: currentColor5,
         color6: currentColor6,
         color7: currentColor7,
-      }
+      };
       localStorage.setItem(`savedPalette${i}`, JSON.stringify(newSavedPalette));
       return;
-    } else if(savedPalette && i === 5) {
+    } else if (savedPalette.name === currentName) { // Use the stored currentName
+      let newSavedPalette = {
+        name: currentName, // Use the stored currentName
+        color1: currentColor1,
+        color2: currentColor2,
+        color3: currentColor3,
+        color4: currentColor4,
+        color5: currentColor5,
+        color6: currentColor6,
+        color7: currentColor7,
+      };
+      localStorage.setItem(`savedPalette${i}`, JSON.stringify(newSavedPalette));
+      return;
+    } else if (i === 5) {
       alert('Max limit reached!');
-      console.log('working');
-      break;
-    } else {
-      console.log('working');
-      continue};
+      return;
+    }
   }
 }
 
@@ -393,6 +413,8 @@ loadButton.addEventListener('click', () => {
 })
 
 let savedPalettes = document.querySelector('.saved-palettes');
+
+// Create function to load previously saved palette
 
 function loadPalettes() {
 while(savedPalettes.firstChild) {
@@ -436,7 +458,6 @@ for(i = 1; i < 6; i++) {
       currentColor6 = localStorage.getItem('currentColor6');
       currentColor7 = localStorage.getItem('currentColor7');
       for(let i = 1; i < 8; i++) {
-        console.log(localStorage.getItem(`currentColor${i}`));
         if ((localStorage.getItem(`currentColor${i}`)) === 'null') {
           document.querySelector(`.column${i} label`).style.backgroundColor = 'lightgray';
           for(let j = 1; j < 10; j++) {
@@ -452,6 +473,7 @@ for(i = 1; i < 6; i++) {
         }
         nameBox.value = localStorage.getItem('currentName');
         randomizeNameColor();
+        savedNameBox.style.zIndex = 2;
       }
     });
     let savedName = JSON.parse(localStorage.getItem(`savedPalette${i}`)).name; 
@@ -475,7 +497,6 @@ for(i = 1; i < 6; i++) {
     savedPalette.classList.add(`.savedPalette${i}`);
     savedPalettes.appendChild(savedPalette);
     let savedName = JSON.parse(localStorage.getItem(`savedPalette${i}`)).name; 
-    console.log(savedName);   
     let length = savedName.length;
     let stringToArray = savedName.split('');
     for(let i = 0; i < length; i++) {
@@ -485,10 +506,52 @@ for(i = 1; i < 6; i++) {
       newChar.style.color = 'white';
     }
   }
+
 };
 };
 
-// Create function to load previously saved palette
+
+// Create function to create new palette board
+
+let newButton = document.querySelector('.new-button');
+newButton.addEventListener('click', () => {
+  localStorage.setItem(`currentName`, ``);
+  localStorage.setItem(`currentColor1`, `null`);
+  localStorage.setItem(`currentColor2`, `null`);
+  localStorage.setItem(`currentColor3`, `null`);
+  localStorage.setItem(`currentColor4`, `null`);
+  localStorage.setItem(`currentColor5`, `null`);
+  localStorage.setItem(`currentColor6`, `null`);
+  localStorage.setItem(`currentColor7`, `null`);
+  currentColor1 = localStorage.getItem('currentColor1');
+  currentColor2 = localStorage.getItem('currentColor2');
+  currentColor3 = localStorage.getItem('currentColor3');
+  currentColor4 = localStorage.getItem('currentColor4');
+  currentColor5 = localStorage.getItem('currentColor5');
+  currentColor6 = localStorage.getItem('currentColor6');
+  currentColor7 = localStorage.getItem('currentColor7');
+  for(let i = 1; i < 8; i++) {
+    console.log(localStorage.getItem(`currentColor${i}`));
+    if ((localStorage.getItem(`currentColor${i}`)) === 'null') {
+      document.querySelector(`.column${i} label`).style.backgroundColor = 'lightgray';
+      for(let j = 1; j < 10; j++) {
+        document.querySelector(`.column${i} .shade${j}`).style.backgroundColor = 'lightgray';
+        document.querySelector(`.column${i} .shade${j}`).textContent = null;
+      }
+      continue;
+    } else {
+      console.log('working');
+      let hue = hexToHue(localStorage.getItem(`currentColor${i}`));
+      shadeHue(hue, `${i}`);
+      applyTrueColor((localStorage.getItem(`currentColor${i}`)), `${i}`);
+    }
+  }
+  nameBox.value = null;
+  while(savedNameBox.firstChild) {
+    savedNameBox.removeChild(savedNameBox.firstChild);
+  };
+  savedNameBox.style.zIndex = 0;
+})
 
 
 loadPalettes();
