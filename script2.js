@@ -151,6 +151,8 @@ let savedNameBox = document.querySelector('.saved-name');
 
 
 function randomizeNameColor() {
+  console.log('working');
+  console.log(currentPalette);
     if(currentPalette.name !== 'none') {
       let count;
       for(let i = 1; i < 7; i++) {
@@ -225,7 +227,123 @@ if(savedNameBox.firstChild) {
   
 // Create save function to save current localstorage palette object as a saved palette
 
+
+function saveCurrentPalette() {
+  localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
+  let currentName = currentPalette.name;
+
+  if (currentName === 'none') { 
+    alert("Please enter a name for the palette.");
+    return; 
+  }
+
+  for(let i = 1; i < 8; i++) {
+    if(currentPalette[`color${i}`]) {
+      break;
+    } else if (i === 8) {
+      alert("Please enter at least one color for the palette.")
+      return;
+    }
+  }
+
+  for (let i = 1; i < 6; i++) {
+      let savedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
+
+      if (savedPalette === null || savedPalette.name === currentPalette.name) {
+        let newSavedPalette = currentPalette;
+        localStorage.setItem(`savedPalette${i}`, JSON.stringify(newSavedPalette));
+        return;
+      } else if (i === 5) {
+        alert('Max limit reached!');
+        return;
+      }
+  }
+};
+
+let saveButton = document.querySelector('.save-button');
+saveButton.addEventListener('click', () => {
+  saveCurrentPalette();
+  loadPalettes();
+  document.querySelector('.save-button svg').style.fill = 'green';
+})
+
+
 // Create load function to set saved palette to current localstorage palette
+
+
+let loadButton = document.querySelector('.load-button');
+loadButton.addEventListener('click', () => {
+  if(document.querySelector('.load-button svg').style.fill === 'aqua') {
+    document.querySelector('.load-button svg').style.fill = 'white';
+    document.querySelector('.saved-palettes').style.visibility = 'hidden';
+  } else {
+    document.querySelector('.load-button svg').style.fill = 'aqua';
+    document.querySelector('.saved-palettes').style.visibility = 'visible';
+  }
+  loadPalettes();
+})
+
+let savedPalettes = document.querySelector('.saved-palettes');
+
+
+function loadPalettes() {
+  while(savedPalettes.firstChild) {
+    savedPalettes.removeChild(savedPalettes.firstChild);
+  };
+  for(i = 1; i < 6; i++) {
+    let currentSavedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
+    console.log('working');
+    if(currentSavedPalette) {
+      let savedPalette = document.createElement('div');
+      savedPalettes.appendChild(savedPalette);
+      savedPalette.classList.add(`.savedPalette${i}`);
+      savedPalette.addEventListener('click', () => {
+        let savedPaletteNumber = (Array.from(savedPalettes.children).indexOf(savedPalette)) + 1;
+        console.log(savedPaletteNumber);
+        currentPalette = (JSON.parse(localStorage.getItem(`savedPalette${savedPaletteNumber}`)));
+        console.log(currentPalette);
+        localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
+        console.log(localStorage.getItem(`currentPalette`))
+
+        for(let j = 1; j < 8; j++) {
+          let currentColor = currentPalette[`color${j}`];
+          shadeHex(currentColor, `${j}`);
+          applyTrueColor(currentColor, `${j}`);
+          }
+      
+      let nameBox = document.getElementById('name');
+      if(currentPalette.name === 'none') {
+          nameBox.value = null;
+      } else {
+      nameBox.value = currentPalette.name;
+      };
+      randomizeNameColor();
+  
+    if(savedNameBox.firstChild) {
+      savedNameBox.style.zIndex = 2;
+    }
+      });
+      let savedName = JSON.parse(localStorage.getItem(`savedPalette${i}`)).name; 
+      let length = savedName.length;
+      let stringToArray = savedName.split('');
+      for(let j = 0; j < length; j++) {
+        let newChar = document.createElement('span');
+        newChar.textContent = stringToArray[j];
+        savedPalette.appendChild(newChar);
+        let randomValue = (Math.floor(Math.random() * 7)) + 1;
+        while((JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${randomValue}`] === 'none') {
+          randomValue = (Math.floor(Math.random() * 7)) + 1;
+        }
+        let hue = hexToHue(JSON.parse(localStorage.getItem(`savedPalette${i}`))[`color${randomValue}`]);
+        let newColor = hsbToHex(hue, 100, 100);
+        newChar.style.color = newColor;
+  
+      } 
+    }
+  }
+};
+
+loadPalettes();
 
 // Create new function to set current localstorage palette object to blank palette object
 
