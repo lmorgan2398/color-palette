@@ -424,11 +424,13 @@ while(savedPalettes.firstChild) {
   savedPalettes.removeChild(savedPalettes.firstChild);
 };
 for(i = 1; i < 6; i++) {
+  let currentSavedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
   let count;
   for(let j = 1; j < 8; j++) {
-    if (!(JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${j}`] && j === 7) {
+    console.log(currentSavedPalette[`color${j}`]);
+    if (j === 8) {
       count = false;
-    } else if (!(JSON.parse(localStorage.getItem(`savedPalette${i}`)))[`color${j}`]) {
+    } else if (((currentSavedPalette[`color${j}`])) === null) {
       continue; 
     } else {
       count = true;
@@ -439,7 +441,6 @@ for(i = 1; i < 6; i++) {
     savedPalettes.appendChild(savedPalette);
     savedPalette.classList.add(`.savedPalette${i}`);
     savedPalette.addEventListener('click', () => {
-      
       let savedPaletteNumber = (Array.from(savedPalettes.children).indexOf(savedPalette)) + 1;
       console.log(savedPaletteNumber);
       let newCurrentPalette = (JSON.parse(localStorage.getItem(`savedPalette${savedPaletteNumber}`)));
