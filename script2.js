@@ -51,7 +51,7 @@ colorPicker1.addEventListener('change', () => {
   currentPalette.color1 = document.getElementById('color1').value;
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color1, '1');
-  document.querySelector('.save-button svg').style.fill = 'red';
+  updateSaveButton();
 });
 
 
@@ -64,7 +64,7 @@ colorPicker2.addEventListener('change', () => {
   currentPalette.color2 = document.getElementById('color2').value;
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color2, '2');
-  document.querySelector('.save-button svg').style.fill = 'red';
+  updateSaveButton();
 });
 
 
@@ -78,7 +78,7 @@ colorPicker3.addEventListener('change', () => {
   currentPalette.color3 = document.getElementById('color3').value;
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color3, '3');
-  document.querySelector('.save-button svg').style.fill = 'red';
+  updateSaveButton();
 });
 
 
@@ -92,7 +92,7 @@ colorPicker4.addEventListener('change', () => {
   currentPalette.color4 = document.getElementById('color4').value;
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color4, '4');
-  document.querySelector('.save-button svg').style.fill = 'red';
+  updateSaveButton();
 });
 
 
@@ -105,7 +105,7 @@ colorPicker5.addEventListener('change', () => {
   currentPalette.color5 = document.getElementById('color5').value;
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color5, '5');
-  document.querySelector('.save-button svg').style.fill = 'red';
+  updateSaveButton();
 });
 
 
@@ -118,7 +118,7 @@ colorPicker6.addEventListener('change', () => {
   currentPalette.color6 = document.getElementById('color6').value;
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color6, '6');
-  document.querySelector('.save-button svg').style.fill = 'red';
+  updateSaveButton();
 });
 
 
@@ -131,7 +131,7 @@ colorPicker7.addEventListener('change', () => {
   currentPalette.color7 = document.getElementById('color7').value;
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color7, '7');
-  document.querySelector('.save-button svg').style.fill = 'red';
+  updateSaveButton();
 });
 
 nameBox.addEventListener('change', () => {
@@ -142,8 +142,8 @@ nameBox.addEventListener('change', () => {
     } else {
         currentPalette.name = nameBox.value;
         localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
-        document.querySelector('.save-button svg').style.fill = 'red';
-    }
+        updateSaveButton();
+        }
 });
 
 
@@ -215,8 +215,8 @@ function randomizeNameColor() {
         localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
         randomizeNameColor();
         savedNameBox.style.zIndex = 2;
-        document.querySelector('.save-button svg').style.fill = 'red';
-    }
+        updateSaveButton();
+        }
   })
   
 randomizeNameColor();
@@ -264,7 +264,7 @@ let saveButton = document.querySelector('.save-button');
 saveButton.addEventListener('click', () => {
   saveCurrentPalette();
   loadPalettes();
-  document.querySelector('.save-button svg').style.fill = 'green';
+  updateSaveButton();
 })
 
 
@@ -322,6 +322,7 @@ function loadPalettes() {
     if(savedNameBox.firstChild) {
       savedNameBox.style.zIndex = 2;
     }
+    updateSaveButton();
       });
       let savedName = JSON.parse(localStorage.getItem(`savedPalette${i}`)).name; 
       let length = savedName.length;
@@ -372,6 +373,7 @@ newButton.addEventListener('click', () => {
         savedNameBox.removeChild(savedNameBox.firstChild);
       }
       savedNameBox.style.zIndex = 0;
+      updateSaveButton();
 });
 
 // Insert color translation functions
@@ -484,4 +486,21 @@ function randomizeTitleColor() {
   })
   
   
-  
+  // Create function to update save button color when current palette does not 
+  // match any saved palette
+
+  function updateSaveButton() {
+    console.log('working');
+    for(let i = 1; i < 6; i++) {
+      if ((localStorage.getItem(`currentPalette`)) === (localStorage.getItem(`savedPalette${i}`))) {
+        console.log('working');
+        document.querySelector('.save-button svg').style.fill = 'green';
+        return;
+      } else if (i === 5) {
+        console.log('working');
+        document.querySelector(`.save-button svg`).style.fill = 'red';
+      }
+    }
+  };
+
+updateSaveButton();
