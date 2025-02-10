@@ -151,8 +151,6 @@ let savedNameBox = document.querySelector('.saved-name');
 
 
 function randomizeNameColor() {
-  console.log('working');
-  console.log(currentPalette);
     if(currentPalette.name !== 'none') {
       let count;
       for(let i = 1; i < 7; i++) {
@@ -233,14 +231,16 @@ function saveCurrentPalette() {
   let currentName = currentPalette.name;
 
   if (currentName === 'none') { 
+    console.log('name working');
     alert("Please enter a name for the palette.");
     return; 
   }
 
   for(let i = 1; i < 8; i++) {
-    if(currentPalette[`color${i}`]) {
+    console.log('color working');
+    if(currentPalette[`color${i}`] !== 'none') {
       break;
-    } else if (i === 8) {
+    } else if (i === 7) {
       alert("Please enter at least one color for the palette.")
       return;
     }
@@ -292,18 +292,14 @@ function loadPalettes() {
   };
   for(i = 1; i < 6; i++) {
     let currentSavedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
-    console.log('working');
     if(currentSavedPalette) {
       let savedPalette = document.createElement('div');
       savedPalettes.appendChild(savedPalette);
       savedPalette.classList.add(`.savedPalette${i}`);
       savedPalette.addEventListener('click', () => {
         let savedPaletteNumber = (Array.from(savedPalettes.children).indexOf(savedPalette)) + 1;
-        console.log(savedPaletteNumber);
         currentPalette = (JSON.parse(localStorage.getItem(`savedPalette${savedPaletteNumber}`)));
-        console.log(currentPalette);
         localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
-        console.log(localStorage.getItem(`currentPalette`))
 
         for(let j = 1; j < 8; j++) {
           let currentColor = currentPalette[`color${j}`];
@@ -433,7 +429,6 @@ function shadeHex(hex, column) {
         currentCell.textContent = '';
     }
   } else {
-    console.log('hue');
     let hue = hexToHue(hex);
     let sList = [10, 30, 50, 70, 90, 100, 100, 100, 100]
     let bList = [100, 100, 100, 100, 90, 70, 50, 30, 10]
@@ -490,14 +485,11 @@ function randomizeTitleColor() {
   // match any saved palette
 
   function updateSaveButton() {
-    console.log('working');
     for(let i = 1; i < 6; i++) {
       if ((localStorage.getItem(`currentPalette`)) === (localStorage.getItem(`savedPalette${i}`))) {
-        console.log('working');
         document.querySelector('.save-button svg').style.fill = 'green';
         return;
       } else if (i === 5) {
-        console.log('working');
         document.querySelector(`.save-button svg`).style.fill = 'red';
       }
     }
