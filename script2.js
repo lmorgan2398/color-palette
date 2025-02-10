@@ -52,6 +52,7 @@ colorPicker1.addEventListener('change', () => {
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color1, '1');
   updateSaveButton();
+  randomizeNameColor();
 });
 
 
@@ -65,6 +66,7 @@ colorPicker2.addEventListener('change', () => {
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color2, '2');
   updateSaveButton();
+  randomizeNameColor();
 });
 
 
@@ -79,6 +81,7 @@ colorPicker3.addEventListener('change', () => {
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color3, '3');
   updateSaveButton();
+  randomizeNameColor();
 });
 
 
@@ -93,6 +96,7 @@ colorPicker4.addEventListener('change', () => {
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color4, '4');
   updateSaveButton();
+  randomizeNameColor();
 });
 
 
@@ -106,6 +110,7 @@ colorPicker5.addEventListener('change', () => {
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color5, '5');
   updateSaveButton();
+  randomizeNameColor();
 });
 
 
@@ -119,6 +124,7 @@ colorPicker6.addEventListener('change', () => {
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color6, '6');
   updateSaveButton();
+  randomizeNameColor();
 });
 
 
@@ -132,6 +138,7 @@ colorPicker7.addEventListener('change', () => {
   localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
   shadeHex(currentPalette.color7, '7');
   updateSaveButton();
+  randomizeNameColor();
 });
 
 nameBox.addEventListener('change', () => {
