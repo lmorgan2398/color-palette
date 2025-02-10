@@ -253,14 +253,14 @@ function saveCurrentPalette() {
     }
   }
 
-  for (let i = 1; i < 6; i++) {
+  for (let i = 1; i < 11; i++) {
       let savedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
 
       if (savedPalette === null || savedPalette.name === currentPalette.name) {
         let newSavedPalette = currentPalette;
         localStorage.setItem(`savedPalette${i}`, JSON.stringify(newSavedPalette));
         return;
-      } else if (i === 5) {
+      } else if (i === 10) {
         alert('Max limit reached!');
         return;
       }
@@ -297,7 +297,7 @@ function loadPalettes() {
   while(savedPalettes.firstChild) {
     savedPalettes.removeChild(savedPalettes.firstChild);
   };
-  for(i = 1; i < 6; i++) {
+  for(i = 1; i < 11; i++) {
     let currentSavedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
     if(currentSavedPalette) {
       let savedPalette = document.createElement('div');
@@ -492,7 +492,7 @@ function randomizeTitleColor() {
   // match any saved palette
 
   function updateSaveButton() {
-    for(let i = 1; i < 6; i++) {
+    for(let i = 1; i < 11; i++) {
       if ((localStorage.getItem(`currentPalette`)) === (localStorage.getItem(`savedPalette${i}`))) {
         document.querySelector('.save-button svg').style.fill = 'green';
         return;

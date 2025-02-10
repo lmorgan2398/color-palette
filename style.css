@@ -9,20 +9,30 @@ body,
 
 body {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    gap: 50px;
+    gap: 10px;
     background-color: whitesmoke;
+    position: relative;
+    right: -162.22px;
 }
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+
 
 .information {
     display: flex;
     justify-content: center;
     gap: 120px;
     position: relative;
-    right: -165px;
 }
 
 h1 {
@@ -167,11 +177,13 @@ h1:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    flex: 1;
+    flex: 0 0 324.44px;
     width: 324.44px;
     letter-spacing: 2px;
     visibility: hidden;
     position: relative;
+    justify-content: flex-start;
+    height: 812.64px;
 }
 
 .saved-palettes div {
@@ -185,6 +197,7 @@ h1:hover {
     z-index: 0;
     font-weight: bold;
     transition: all 0.1s ease-in-out;
+    width: 324.44px;
 }
 
 .saved-palettes div:hover {
