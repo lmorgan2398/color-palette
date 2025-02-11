@@ -183,7 +183,7 @@ h1:hover {
     visibility: hidden;
     position: relative;
     justify-content: flex-start;
-    height: 812.64px;
+    height: 847.64px;
 }
 
 .saved-palettes div {
@@ -263,4 +263,26 @@ label {
 label:hover {
     transform:scale(1.1);
     cursor: grab;
+}
+
+.column > .clear {
+    background-color: black;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: flex-end;
+}
+
+.column > .clear:hover {
+    transform:scale(1.1);
+    cursor: grab;
+}
+
+.column > .clear:active {
+    transform:scale(0.95);
+}
+
+.clear svg {
+    width: 30px;
+    height: 30px;
 }

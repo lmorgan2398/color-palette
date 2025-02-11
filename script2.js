@@ -503,3 +503,18 @@ function randomizeTitleColor() {
   };
 
 updateSaveButton();
+
+// Create function to clear the color from a palette column
+
+for (let i = 1; i < 8; i++) {
+  let clearButton = document.querySelector(`.clear${i}`);
+  let clearNumber = i;
+  clearButton.addEventListener('click', () => {
+    currentPalette[`color${clearNumber}`] = 'none';
+    localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
+    shadeHex('none', `${clearNumber}`);
+    updateSaveButton();
+    randomizeNameColor();
+    applyTrueColor('none', `${clearNumber}`);    
+  })
+}
