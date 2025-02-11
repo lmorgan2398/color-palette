@@ -518,3 +518,7 @@ for (let i = 1; i < 8; i++) {
     applyTrueColor('none', `${clearNumber}`);    
   })
 }
+
+
+// Create function to delete saved palette from local storage
+

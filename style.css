@@ -7,6 +7,10 @@ body,
     font-family: sans-serif;
 }
 
+html {
+    width: 100vw;
+}
+
 body {
     display: flex;
     flex-direction: row;
@@ -25,7 +29,6 @@ body {
     align-items: center;
     gap: 50px;
 }
-
 
 
 .information {
@@ -203,6 +206,22 @@ h1:hover {
     font-weight: bold;
     transition: all 0.1s ease-in-out;
     width: 324.44px;
+    height: 55.56px;
+}
+
+.saved-palettes-clear div {
+    color: whitesmoke;
+    background-color: black;
+    font-size: 22px;
+    border-radius: 8px;
+    text-align: center;
+    border: none;
+    padding: 15px;    
+    z-index: 0;
+    font-weight: bold;
+    transition: all 0.1s ease-in-out;
+    width: 324.44px;
+    height: 55.56px;
 }
 
 .saved-palettes div:hover {
@@ -290,4 +309,23 @@ label:hover {
 .clear svg {
     width: 30px;
     height: 30px;
+}
+
+.saved-palettes-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.clear-site {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+.clear-site img {
+    height: 40px;
+    width: 40px;
 }
