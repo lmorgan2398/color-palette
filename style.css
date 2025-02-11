@@ -101,6 +101,11 @@ h1:hover {
     margin: 0px;
 }
 
+
+.new-button:hover svg {
+    fill: gold;
+}
+
 .palette-name {
     background-color: black;
     border-radius: 8px;
