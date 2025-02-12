@@ -282,21 +282,25 @@ let loadButton = document.querySelector('.load-button');
 loadButton.addEventListener('click', () => {
   if(document.querySelector('.load-button svg').style.fill === 'aqua') {
     document.querySelector('.load-button svg').style.fill = 'white';
-    document.querySelector('.saved-palettes').style.visibility = 'hidden';
+    document.querySelector('.saved-palettes-container').style.visibility = 'hidden';
   } else {
     document.querySelector('.load-button svg').style.fill = 'aqua';
-    document.querySelector('.saved-palettes').style.visibility = 'visible';
+    document.querySelector('.saved-palettes-container').style.visibility = 'visible';
   }
   loadPalettes();
 })
 
 let savedPalettes = document.querySelector('.saved-palettes');
+let savedPalettesClear = document.querySelector('.saved-palettes-clear');
 
 
 function loadPalettes() {
   while(savedPalettes.firstChild) {
     savedPalettes.removeChild(savedPalettes.firstChild);
   };
+  while(savedPalettesClear.firstChild) {
+    savedPalettesClear.removeChild(savedPalettesClear.firstChild);
+  }
   for(i = 1; i < 10; i++) {
     let currentSavedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
     if(currentSavedPalette) {
@@ -329,6 +333,19 @@ function loadPalettes() {
     updateSaveButton();
       });
     })(i);
+
+    let savedPaletteClear = document.createElement('div');
+    savedPalettesClear.appendChild(savedPaletteClear);
+    savedPaletteClear.classList.add(`.savedPaletteClear${i}`);
+    (function(currentIndex) {
+      savedPaletteClear.addEventListener('click', () => {
+        console.log('Clicked element at index:', currentIndex);
+        localStorage.removeItem(`savedPalette${currentIndex}`);
+        loadPalettes();
+        updateSaveButton();
+      })
+    })(i);
+
       let savedName = JSON.parse(localStorage.getItem(`savedPalette${i}`)).name; 
       let length = savedName.length;
       let stringToArray = savedName.split('');

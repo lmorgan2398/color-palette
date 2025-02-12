@@ -20,7 +20,7 @@ body {
     gap: 10px;
     background-color: whitesmoke;
     position: relative;
-    right: -162.22px;
+    right: -207.22px;
 }
 
 .centered {
@@ -188,7 +188,6 @@ h1:hover {
     flex: 0 0 324.44px;
     width: 324.44px;
     letter-spacing: 2px;
-    visibility: hidden;
     position: relative;
     justify-content: flex-start;
     height: 847.64px;
@@ -209,20 +208,38 @@ h1:hover {
     height: 55.56px;
 }
 
+.saved-palettes-clear {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 30px;
+    height: 847.64px;    
+}
+
 .saved-palettes-clear div {
-    color: whitesmoke;
-    background-color: black;
+    background-image: url("./images/cancel-close-delete-svgrepo-com.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     font-size: 22px;
     border-radius: 8px;
     text-align: center;
     border: none;
-    padding: 15px;    
-    z-index: 0;
-    font-weight: bold;
     transition: all 0.1s ease-in-out;
-    width: 324.44px;
+    width: 30px;
     height: 55.56px;
 }
+
+.saved-palettes-clear div:hover {
+    transform:scale(1.1);
+    cursor: grab;
+}
+
+.saved-palettes-clear div:active {
+    transform:scale(0.95);
+}
+
 
 .saved-palettes div:hover {
     transform: scale(1.05);
@@ -315,6 +332,8 @@ label:hover {
     display: flex;
     flex-direction: row;
     flex: 0 0 344.44px;
+    gap: 5px;
+    visibility: hidden;
 }
 
 .clear-site {
