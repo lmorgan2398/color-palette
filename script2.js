@@ -297,15 +297,16 @@ function loadPalettes() {
   while(savedPalettes.firstChild) {
     savedPalettes.removeChild(savedPalettes.firstChild);
   };
-  for(i = 1; i < 11; i++) {
+  for(i = 1; i < 10; i++) {
     let currentSavedPalette = JSON.parse(localStorage.getItem(`savedPalette${i}`));
     if(currentSavedPalette) {
       let savedPalette = document.createElement('div');
       savedPalettes.appendChild(savedPalette);
       savedPalette.classList.add(`.savedPalette${i}`);
+      (function(currentIndex) {
       savedPalette.addEventListener('click', () => {
-        let savedPaletteNumber = (Array.from(savedPalettes.children).indexOf(savedPalette)) + 1;
-        currentPalette = (JSON.parse(localStorage.getItem(`savedPalette${savedPaletteNumber}`)));
+        console.log("Clicked element at index:", currentIndex);
+        currentPalette = (JSON.parse(localStorage.getItem(`savedPalette${currentIndex}`)));
         localStorage.setItem(`currentPalette`, JSON.stringify(currentPalette));
 
         for(let j = 1; j < 8; j++) {
@@ -327,6 +328,7 @@ function loadPalettes() {
     }
     updateSaveButton();
       });
+    })(i);
       let savedName = JSON.parse(localStorage.getItem(`savedPalette${i}`)).name; 
       let length = savedName.length;
       let stringToArray = savedName.split('');
