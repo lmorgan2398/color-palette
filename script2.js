@@ -1,3 +1,23 @@
+// Create function and variables to version the site so older null values are removed
+
+const CURRENT_VERSION = '1.0';
+const VERSION_KEY = 'siteVersion';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const storedVersion = localStorage.getItem(VERSION_KEY);
+
+  if(!storedVersion) {
+    localStorage.clear();
+    localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+    window.location.reload();
+  } else if(storedVersion !== CURRENT_VERSION) {
+    localStorage.clear();
+    localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+    window.location.reload();
+  }
+})
+
+
 // Create object to represent a blank palette
 // As changes are input, adjust and save full palette to localstorage
 // Load page with blank palette if localstorage has no current palette (first load)
