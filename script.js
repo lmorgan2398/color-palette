@@ -559,5 +559,17 @@ for (let i = 1; i < 8; i++) {
 }
 
 
-// Create function to delete saved palette from local storage
-
+// Add function to copy hex values to clipboard
+const colors = document.querySelectorAll(`.column div`);
+colors.forEach(color => {
+  color.addEventListener('click', () => {
+    if(color.textContent && color.textContent !== 'copied') {
+      let currentCellColor = color.textContent;
+      navigator.clipboard.writeText(currentCellColor);
+      color.textContent = 'copied';
+      setTimeout(function() {
+        color.textContent = currentCellColor;
+      }, 3000);
+    }
+  })
+})
